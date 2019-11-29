@@ -15,6 +15,8 @@
         }
     </script>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
 

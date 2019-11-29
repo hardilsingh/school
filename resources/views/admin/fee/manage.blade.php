@@ -28,7 +28,7 @@
                         <td>{{$student->tel1}}, {{$student->tel2 == 0 ? 'N/A' : $student->tel2}}</td>
                         <td>{{$student->created_at->toDateString()}}</td>
                         <td>
-                            {!! Form::select('concession' , $concession , 0 , ['class'=>'form-control' , 'id'=>'concession' , 'placeholder'=>'Select concession type']) !!}
+                            {!! Form::select('concession' , $concession , $fee->concession , ['class'=>'form-control' , 'id'=>'concessionTotal' , 'placeholder'=>'Select concession type']) !!}
                         </td>
                     </tr>
                 </tbody>
@@ -57,7 +57,7 @@
         @endif
         @if($fee->q2 == 1)
         <div class="col-lg-3">
-            <button class="btn btn-success btn-lg" disabled >Quater 2 <span class="text-bold">Fee Paid</span></button>
+            <button class="btn btn-success btn-lg" disabled>Quater 2 <span class="text-bold">Fee Paid</span></button>
         </div>
         @endif
         @if($fee->q3 == 0)
@@ -67,7 +67,7 @@
         @endif
         @if($fee->q3 == 1)
         <div class="col-lg-3">
-            <button class="btn btn-success btn-lg" disabled >Quater 3 <span class="text-bold">Fee Paid</span></button>
+            <button class="btn btn-success btn-lg" disabled>Quater 3 <span class="text-bold">Fee Paid</span></button>
         </div>
         @endif
         @if($fee->q4 == 0)
@@ -596,8 +596,6 @@
 @section('script-plugins')
 
 <script>
-
-
     $('#quater1').hide();
     $('#quater2').hide();
     $('#quater3').hide();
@@ -641,6 +639,10 @@
         var sum = array.reduce(function(a, b) {
             return a + b;
         }, 0);
+
+        var totalConcession = $('#concessionTotal').val();
+
+        sum = (totalConcession / 100) * sum;
 
         document.getElementById('total').innerHTML = sum;
         document.getElementById('total1').innerHTML = sum;
@@ -751,6 +753,23 @@
     $("#fee9").keyup(function() {
         total();
     })
+
+    $("#concessionTotal").change(function() {
+        var concession = $(this).val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/fee/student/concessionapply',
+            type: 'POST',
+            data: { id: '{{$fee->id}}', _token: '{{csrf_token()}}' , concession:concession },
+            success: function(response) {
+                window.location.reload();
+            }
+        });
+
+
+    });
 </script>
 
 

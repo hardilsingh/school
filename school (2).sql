@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2019 at 12:20 PM
+-- Generation Time: Nov 29, 2019 at 05:41 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.28
 
@@ -215,16 +215,17 @@ CREATE TABLE `fees` (
   `totalFee` int(11) NOT NULL,
   `paid_fee` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `concession` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fees`
 --
 
-INSERT INTO `fees` (`id`, `student_id`, `q1`, `q2`, `q3`, `q4`, `fee`, `transport_fee`, `computer_fee`, `totalFee`, `paid_fee`, `created_at`, `updated_at`) VALUES
-(1, 13, 0, 0, 0, 0, 1050, 2500, 250, 1300, 0, '2019-11-29 05:08:28', '2019-11-29 05:08:28'),
-(2, 14, 1, 0, 1, 0, 1050, 2500, 250, 2500, 0, '2019-11-29 05:17:52', '2019-11-29 05:17:52');
+INSERT INTO `fees` (`id`, `student_id`, `q1`, `q2`, `q3`, `q4`, `fee`, `transport_fee`, `computer_fee`, `totalFee`, `paid_fee`, `created_at`, `updated_at`, `concession`) VALUES
+(1, 13, 0, 0, 0, 0, 1050, 2500, 250, 1300, 0, '2019-11-29 05:08:28', '2019-11-29 16:31:20', 24),
+(2, 14, 1, 0, 1, 0, 1050, 2500, 250, 2500, 0, '2019-11-29 05:17:52', '2019-11-29 05:17:52', 0);
 
 -- --------------------------------------------------------
 

@@ -21,8 +21,8 @@ class FeeController extends Controller
     public function index()
     {
         //
-        $classes = Grade::pluck('class' , 'id');
-        return view('admin.fee.index' , compact("classes"));
+        $classes = Grade::pluck('class', 'id');
+        return view('admin.fee.index', compact("classes"));
     }
 
     /**
@@ -92,15 +92,24 @@ class FeeController extends Controller
     }
 
 
-    public function manage($student_id) {
+    public function manage($student_id)
+    {
 
 
         $student = Students::findOrFail($student_id);
-        $fee = Fee::where('student_id' , $student->id)->first();
+        $fee = Fee::where('student_id', $student->id)->first();
         $station = Station::find($student->station);
         $section = Section::findOrFail($student->section);
         $father = Father::findOrFail($student->father);
-        $concession = Concession::pluck('name' , 'id');
-        return view('admin.fee.manage' , compact(['student' , 'section' , 'father' , 'concession' , 'station' , 'fee']));
+        $concession = Concession::pluck('name', 'concession');
+        return view('admin.fee.manage', compact(['student', 'section', 'father', 'concession', 'station', 'fee']));
+    }
+
+    public function updateConcession(Request $request)
+    {
+
+        Fee::findOrFail($request->id)->update([
+            'concession'=>$request->concession
+        ]);
     }
 }
