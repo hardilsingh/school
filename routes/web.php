@@ -32,6 +32,7 @@ Route::resource('/character-certificates', 'CcController');
 Route::resource('/annual-certificates', 'ExpenseController');
 Route::resource('/gate-passes', 'GatePassController');
 Route::resource('/employee', 'EmployeeController');
+Route::get('/fee/student/{id}', 'FeeController@manage');
 Route::resource('/fee', 'FeeController');
 Route::resource('/concession', 'ConcessionController');
 

@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Concession;
+use App\Father;
+use App\Fee;
 use App\Grade;
+use App\Section;
+use App\Station;
+use App\Students;
 use Illuminate\Http\Request;
 
 class FeeController extends Controller
@@ -83,5 +89,18 @@ class FeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function manage($student_id) {
+
+
+        $student = Students::findOrFail($student_id);
+        $fee = Fee::where('student_id' , $student->id)->first();
+        $station = Station::find($student->station);
+        $section = Section::findOrFail($student->section);
+        $father = Father::findOrFail($student->father);
+        $concession = Concession::pluck('name' , 'id');
+        return view('admin.fee.manage' , compact(['student' , 'section' , 'father' , 'concession' , 'station' , 'fee']));
     }
 }

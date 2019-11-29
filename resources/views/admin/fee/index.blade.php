@@ -117,7 +117,7 @@
                             cell3.innerHTML = name;
                             cell4.innerHTML = tel;
                             cell5.innerHTML = "<a href='students/" + id + "/edit' class='btn btn-success'>View</a>";
-                            cell6.innerHTML = "<a href='inventory/" + id + "/edit' class='btn btn-warning'>Fee Manager</a>";
+                            cell6.innerHTML = "<a href='fee/student/" + id + "' class='btn btn-warning'>Fee Manager</a>";
 
 
 
@@ -220,7 +220,7 @@
                             cell3.innerHTML = name;
                             cell4.innerHTML = tel;
                             cell5.innerHTML = "<a href='students/"+id+"/edit' class='btn btn-success'>View</a>";
-                            cell6.innerHTML = "<a href='students/"+id+"/edit' class='btn btn-warning'>Fee Manager</a>";
+                            cell6.innerHTML = "<a href='fee/student/" + id + "' class='btn btn-warning'>Fee Manager</a>";
 
 
 
