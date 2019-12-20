@@ -126,7 +126,7 @@ View Student
 </div>
 
 
-
+@if(Auth::user()->role == 1)
 <div class="row" style="margin-top:50px;">
     <div class="col-lg-12 text-center">
         @if($student->status == 0)
@@ -142,5 +142,14 @@ View Student
         <a href="{{route('students.edit' , $student->id)}}" class="btn btn-primary" style="margin-left:20px;"> <i class="fa fa-plus-circle"></i> Edit </a>
     </div>
 </div>
+@endif
+
+@if(Auth::user()->role == 0)
+<div class="row" style="margin-top:50px;">
+    <div class="col-lg-12 text-center">
+        <a href="/gate-passes/create?student_id={{$student->id}}" class="btn btn-warning" style="margin-left:20px;"> <i class="fa fa-plus-circle"></i> Issue Gate Pass</a>
+    </div>
+</div>
+@endif
 
 @stop
