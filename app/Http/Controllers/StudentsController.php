@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Caste;
+use App\ExplicitCon;
 use App\Father;
 use App\Fee;
 use App\Grade;
@@ -25,7 +26,9 @@ class StudentsController extends Controller
     {
         //
         $classes = Grade::pluck('class', 'id');
-        return view('admin.students.index', compact(['classes']));
+        $students_latest = Students::orderBy('admission_date' , 'DESC')->paginate(3);
+
+        return view('admin.students.index', compact(['classes' , 'students_latest']));
     }
 
     /**
@@ -38,8 +41,9 @@ class StudentsController extends Controller
         //
         $classes = Grade::pluck("class", "id");
         $stations = Station::pluck('name', 'id');
+        $other = ExplicitCon::pluck('name' , 'id');
         $streams = Stream::pluck('name', 'id');
-        $roll_number = Students::orderBy('id', 'DESC')->first();
+        $roll_number = Students::orderBy('admission_date', 'DESC')->first();
 
         if ($roll_number == null) {
             $new_roll = 1;
@@ -47,7 +51,7 @@ class StudentsController extends Controller
             $new_roll = $roll_number->roll_number + 1;
         }
 
-        $adm_number = Students::orderBy('id', 'DESC')->first();
+        $adm_number = Students::orderBy('admission_date', 'DESC')->first();
 
         if ($adm_number == null) {
             $new_adm = 1;
@@ -57,7 +61,7 @@ class StudentsController extends Controller
 
         $castes = Caste::pluck('name', 'id');
         $religions = Religion::pluck('name', 'id');
-        return view("admin.students.create", compact(['classes', 'stations', 'streams', 'new_roll', 'new_adm', 'religions', 'castes']));
+        return view("admin.students.create", compact(['classes', 'stations', 'streams', 'new_roll', 'new_adm', 'religions', 'castes' , 'other']));
     }
 
     /**
@@ -89,24 +93,28 @@ class StudentsController extends Controller
             'aadhar_card' => $request->ac == null ? 0 : $request->ac,
             'tc' => $request->tc == null ? 0 : $request->tc,
             'document_verified' => $input['verified'],
-            'DOB' => $input['DOB'],
-            'tel1' => $input['tel1'],
-            'tel2' => $input['tel2'] == null ? 0 : $input['tel2'],
-            'address' => $input['address'],
+            'father' => $input['father_name'] !== null ? $input['father_name'] : 'Not Given',
+            'mother' => $input['mother_name'] !== null ? $input['mother_name'] : 'Not Given',
+            'DOB' => $input['DOB'] !== null ? $input['DOB'] : now()->toDateString(),
+            'tel1' => $input['tel1'] !== null ? $input['tel1'] : 0,
+            'tel2' => 0,
+            'address' => $input['address'] !== null ? $input['address'] : 'Not Given',
             'addhar_number' => $input['UID'] == null ? 0 : $input['UID'],
-            'convinience_req' => $input['required'],
+            'convinience_req' => $input['required'] !== null ? $input['required'] : 0,
             'station' => $input['station_id'] == null ? 0 : $input['station_id'],
             'cast_category' => $input['caste_id'],
             'religion' => $input['religion_id'],
-            'blood_group' => $input['blood'],
-            'annual_income' => $input['income'],
-            'adm_type' => $input['adm_type']
+            'blood_group' => $input['blood'] !== null ? $input['blood'] : 0,
+            'annual_income' => $input['annual_income'] !== null ? $input['annual_income'] : 0,
+            'adm_type' => $input['adm_type'] !== null ? $input['adm_type'] : 0,
+            'status'=>0,
+            'other_con'=>$input['other_con'] == null ? 0 : $input['other_con']
         ]);
 
         $mother = Mother::create([
             'student_id' => $student->id,
-            'name' => $input['mother_name'],
-            'occupation' => $input['mother_occup'],
+            'name' => $input['mother_name'] !== null ? $input['mother_name'] : 'N/A',
+            'occupation' => $input['mother_occup'] == null ? 'N/A' : $input['mother_occup'],
             'UID' => $input['mother_uid'] == null ? 0 : $input['mother_uid'],
             'qual' => $input['mother_qual'],
         ]);
@@ -134,11 +142,6 @@ class StudentsController extends Controller
             'q2' => 0,
             'q3' => 0,
             'q4' => 0,
-            'fee' => $class->fee,
-            'transport_fee' => $station == null ? 0 : $station->fee,
-            'computer_fee' => $class->computer_fee,
-            'totalFee' => $class->fee + $class->computer_fee + $station == null ? 0 : $station->fee,
-            'paid_fee' => 0
         ]);
 
 
@@ -172,16 +175,7 @@ class StudentsController extends Controller
         //
 
         $student = Students::findOrFail($id);
-        $class = Grade::findOrFail($student->class);
-        $section = Section::findOrFail($student->section);
-        $father = Father::findOrFail($student->father);
-        $mother = Mother::findOrFail($student->mother);
-        $stream = Stream::findOrFail($student->stream);
-        $station = Station::findOrFail($student->station);
-        $caste = Caste::findOrFail($student->cast_category);
-        $religion = Religion::findOrFail($student->religion);
-
-        return view('admin.students.show', compact(['student', 'stream', 'class', 'section', 'father', 'mother', 'station', 'caste', 'religion']));
+        return view('admin.students.show', compact(['student']));
     }
 
     /**
@@ -201,10 +195,9 @@ class StudentsController extends Controller
         $adm_number = Students::orderBy('id', 'DESC')->get()->first();
         $castes = Caste::pluck('name', 'id');
         $religions = Religion::pluck('name', 'id');
-        $father = Father::findOrFail($student->father);
-        $mother = Mother::findOrFail($student->mother);
-        $sections = Section::where('grade_id', $student->class)->get();
-        return view("admin.students.edit", compact(['classes', 'stations', 'streams', 'roll_number', 'adm_number', 'religions', 'castes', 'student', 'father', 'mother', 'sections']));
+        $other = ExplicitCon::pluck('name' , 'id');
+
+        return view("admin.students.edit", compact(['classes', 'stations', 'streams', 'roll_number', 'adm_number', 'religions', 'castes', 'student', 'sections' , 'other']));
     }
 
     /**
@@ -217,76 +210,10 @@ class StudentsController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        $input = $request->all();
-
         $student = Students::findOrFail($id);
-
-        $student->update([
-            'name' => $input['name'],
-            'admission_date' => $input['date_of_adm'],
-            'session' => $input['session'],
-            'previous_ad_number' => $input['prev_adm_no'],
-            'class' => $input['grade_id'],
-            'section' => $request->section_id,
-            'stream' => $input['stream_id'],
-            'roll_number' => $input['roll_number'],
-            'adm_no' => $input['adm_no'],
-            'gender' => $input['gender'],
-            'DOB_certificate' => $request->dob_cer == null ? 0 : $request->dob_cer,
-            'slc' => $request->slc == null ? 0 : $request->slc,
-            'report_card' => $request->rc == null ? 0 : $request->rc,
-            'aadhar_card' => $request->ac == null ? 0 : $request->ac,
-            'tc' => $request->slc == null ? 0 : $request->tc,
-            'document_verified' => $input['verified'],
-            'DOB' => $input['DOB'],
-            'tel1' => $input['tel1'],
-            'tel2' => $input['tel2'],
-            'address' => $input['address'],
-            'addhar_number' => $input['UID'],
-            'convinience_req' => $input['required'],
-            'station' => $input['station_id'],
-            'cast_category' => $input['caste_id'],
-            'religion' => $input['religion_id'],
-            'blood_group' => $input['blood'],
-            'annual_income' => $input['income'],
-            'adm_type' => $input['adm_type']
-        ]);
-
-
-        $mother = Mother::where('student_id', $student->id);
-
-
-        $mother->update([
-            'student_id' => $student->id,
-            'name' => $input['mother_name'],
-            'occupation' => $input['mother_occup'],
-            'UID' => $input['mother_uid'],
-            'qual' => $input['mother_qual'],
-        ]);
-
-        $father = Father::where('student_id', $student->id);
-
-
-        $father->update([
-            'student_id' => $student->id,
-            'name' => $input['father_name'],
-            'occupation' => $input['father_occup'],
-            'UID' => $input['father_uid'],
-            'qual' => $input['father_qual'],
-        ]);
-
-        if ($request->photo !== null) {
-            $path = "/photos";
-            $image = $request->file('photo');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move($path, $imageName);
-        }
-
-
-
+        $student->update($request->all());
         $request->session()->flash('updated', "Student updated successfully");
-        return redirect('/students');
+        return redirect()->back();
     }
 
     /**
@@ -302,15 +229,6 @@ class StudentsController extends Controller
         Students::findOrFail($id)->delete();
         session()->flash('deleted', "Deleted Successfully");
         return redirect()->back();
-    }
-
-    public function getSections($classid = 0)
-    {
-        // Fetch Sections by Classid
-        $sectionData['data'] = Section::where('grade_id', $classid)->get();
-
-        echo json_encode($sectionData);
-        exit;
     }
 
     public function getStudents()
@@ -331,4 +249,24 @@ class StudentsController extends Controller
         echo json_encode($sectionData);
         exit;
     }
+
+    public function report() {
+
+        $report = $_GET['by'];
+
+
+        $students = Students::count();
+        $male = Students::where("gender" , 0)->count();
+        $female = Students::where("gender" , 1)->count();
+
+        $religions = Religion::all();
+        $classes = Grade::all();
+        $castes = Caste::all();
+        $students_dis = Students::all();
+        $students_latest = Students::orderBy('admission_date' , 'DESC')->paginate(5);
+
+        return view('admin.reports.index' , compact(['male' , 'female' , 'students' , 'religions' , 'classes' , 'castes' , 'students_dis' , 'students_latest' , 'report']));
+    }
+
+
 }

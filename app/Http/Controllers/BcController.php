@@ -16,7 +16,7 @@ class BcController extends Controller
     public function index()
     {
         $certificates = BirthCertificate::all();
-        return view("admin.birth-certificates.index" , compact('certificates'));
+        return view("admin.birth-certificates.index", compact('certificates'));
     }
 
 
@@ -26,31 +26,38 @@ class BcController extends Controller
         if (isset($_GET['student_id'])) {
             $id = $_GET['student_id'];
             $student = Students::findOrFail($id);
-            $father = Father::findOrFail($student->father);
-            $mother = Mother::findOrFail($student->mother);
-            $class = Grade::findOrFail($student->class);
-            return view("admin.birth-certificates.create" , compact(['student' , 'father' , 'mother' , 'class']));
+            return view("admin.birth-certificates.create", compact(['student', 'father', 'mother', 'class']));
         }
     }
 
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
 
-        BirthCertificate::create($request->all());
-        $request->session()->flash('created', "Birth Certificate Created Successfully");
-        return redirect('/birth-certificates');
+        $current = BirthCertificate::where('adm_no', $request->adm_no)->count();
+
+        if ($current == 0) {
+            BirthCertificate::create($request->all());
+            $request->session()->flash('created', "Birth Certificate Created Successfully");
+            return redirect('/birth-certificates');
+        }else {
+            $request->session()->flash('deleted', "Birth Certificate exists already");
+            return redirect()->back();
+        }
 
     }
 
 
-    public function edit($id) {
-        
+    public function edit($id)
+    {
+
         $certificate = BirthCertificate::findOrFail($id);
-        return view('admin.birth-certificates.edit' , compact('certificate'));
+        return view('admin.birth-certificates.edit', compact('certificate'));
     }
 
-    public function update(Request $request , $id) {
+    public function update(Request $request, $id)
+    {
         $certificate = BirthCertificate::findOrFail($id);
         $certificate->update($request->all());
         $request->session()->flash('updated', "Updated Successfully");
@@ -58,16 +65,17 @@ class BcController extends Controller
     }
 
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         BirthCertificate::findOrFail($id)->delete();
         session()->flash('deleted', 'Deleted Successfully');
         return redirect()->back();
-
     }
 
 
-    public function show($id) {
+    public function show($id)
+    {
         $certificate = BirthCertificate::findOrFail($id);
-        return view('admin.forms.bc' , compact('certificate'));
+        return view('admin.forms.bc', compact('certificate'));
     }
 }

@@ -7,7 +7,7 @@
 @section('content')
 
 
-<div class="row" style="margin-bottom:100px;" class="text-center">
+<div class="row" style="margin-bottom:30px;" class="text-center">
     <div class="col-lg-6">
         <h2><u>Character Certificates</u></h2>
     </div>
@@ -41,8 +41,8 @@
 
 <div class="col-lg-12">
     <div class="row">
-        <table id="myTable" class="display">
-            <thead>
+        <table id="myTable" class="table">
+            <thead class="thead-dark">
                 <tr>
                     <th>#</th>
                     <th>Admission Number</th>

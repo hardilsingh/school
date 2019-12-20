@@ -95,21 +95,84 @@ class FeeController extends Controller
     public function manage($student_id)
     {
 
-
         $student = Students::findOrFail($student_id);
         $fee = Fee::where('student_id', $student->id)->first();
-        $station = Station::find($student->station);
-        $section = Section::findOrFail($student->section);
-        $father = Father::findOrFail($student->father);
         $concession = Concession::pluck('name', 'concession');
-        return view('admin.fee.manage', compact(['student', 'section', 'father', 'concession', 'station', 'fee']));
+        return view('admin.fee.manage', compact(['student', 'fee' ,  'concession']));
     }
 
     public function updateConcession(Request $request)
     {
 
         Fee::findOrFail($request->id)->update([
-            'concession'=>$request->concession
+            'concession' => $request->concession
         ]);
+    }
+
+
+    public function feeForm()
+    {
+
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $quater = $_GET['quater'];
+
+            $student = Students::findOrFail($id);
+            $fee = Fee::where('student_id', $student->id)->first();
+            $station = Station::find($student->station);
+            $section = Section::findOrFail($student->section);
+            $father = Father::findOrFail($student->father);
+            $concession = Concession::pluck('name', 'concession');
+            return view('admin.fee.form', compact(['student', 'quater', 'section', 'father', 'concession', 'station', 'fee']));
+        };
+
+        $sectionData['data'] = 0;
+
+        echo json_encode($sectionData);
+        exit;
+    }
+
+
+    public function saveData()
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $quater = $_GET['quater'];
+            $balance = $_GET['balance'];
+
+            $student = Students::findOrFail($id);
+            $fee = Fee::where('student_id', $student->id)->first();
+
+
+
+            if ($quater == 1) {
+
+                $fee->update([
+                    'q1' => $balance == 0 ? 1 : 0,
+                    'balance1' => $balance
+                ]);
+            } else if ($quater == 2) {
+                $fee->update([
+                    'q2' => $balance == 0 ? 1 : 0,
+                    'balance2' => $balance
+                ]);
+            } else if ($quater == 3) {
+                $fee->update([
+                    'q3' => $balance == 0 ? 1 : 0,
+                    'balance3' => $balance
+                ]);
+            } else if ($quater == 4) {
+                $fee->update([
+                    'q4' => $balance == 0 ? 1 : 0,
+                    'balance4' => $balance
+                ]);
+            }
+
+
+            $sectionData['data'] = 0;
+            echo json_encode($sectionData);
+            exit;
+        }
     }
 }

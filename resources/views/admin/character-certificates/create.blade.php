@@ -43,13 +43,13 @@
 
 
 
-            <div class="form-group"> <label>Father Name</label> <input name="father_name" value="{{$father->name}}" type="text" class="form-control" placeholder="Enter name"> </div>
+            <div class="form-group"> <label>Father Name</label> <input name="father_name" value="{{$student->father}}" type="text" class="form-control" placeholder="Enter name"> </div>
 
-            <div class="form-group"> <label>Mother Name</label> <input name="mother_name" value="{{$mother->name}}" type="text" class="form-control" placeholder="Enter name"> </div>
+            <div class="form-group"> <label>Mother Name</label> <input name="mother_name" value="{{$student->mother}}" type="text" class="form-control" placeholder="Enter name"> </div>
 
 
 
-            <div class="form-group"> <label>Class</label> <input name="class" value="{{$class->class}}" type="text" class="form-control" placeholder="Enter class"> </div>
+            <div class="form-group"> <label>Class</label> <input name="class" value="{{$student->grade->class}}" type="text" class="form-control" placeholder="Enter class"> </div>
 
 
             <div class="form-group"> <label>Adm No.</label> <input name="adm_no" value="{{$student->adm_no}}" type="text" class="form-control" placeholder="Enter number"> </div>

@@ -16,7 +16,7 @@ class GatePassController extends Controller
     public function index()
     {
         $passes = GatePass::all();
-        return view("admin.gate-pass.index" , compact('passes'));
+        return view("admin.gate-pass.index", compact('passes'));
     }
 
 
@@ -25,10 +25,7 @@ class GatePassController extends Controller
         if (isset($_GET['student_id'])) {
             $id = $_GET['student_id'];
             $student = Students::findOrFail($id);
-            $father = Father::findOrFail($student->father);
-            $mother = Mother::findOrFail($student->mother);
-            $class = Grade::findOrFail($student->class);
-            return view("admin.gate-pass.create", compact(['student', 'father', 'mother', 'class']));
+            return view("admin.gate-pass.create", compact(['student']));
         }
     }
 
@@ -50,7 +47,7 @@ class GatePassController extends Controller
     public function edit($id)
     {
         $pass = GatePass::findOrFail($id);
-        return view('admin.gate-pass.edit' , compact(['pass']));
+        return view('admin.gate-pass.edit', compact(['pass']));
     }
 
     public function update(Request $request, $id)
@@ -59,5 +56,12 @@ class GatePassController extends Controller
         $pass->update($request->all());
         $request->session()->flash('updated', "Pass updated successfully");
         return redirect('/gate-passes');
+    }
+
+    public function show($id) {
+
+        $gate = GatePass::findOrFail($id);
+        $student = Students::where('adm_no' , $gate->adm_no)->first();
+        return view('admin.forms.gate' , compact('gate' , 'student'));
     }
 }

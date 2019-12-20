@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 
+@section('heading')
+Register Students
+@stop
 
 
 @section('content')
@@ -87,7 +90,7 @@
             <h3 class="h3">Admission Information</h3>
 
         </div>
-        <div class="form-group"> <label for="exampleInputName2">Previous Adm. No: <span class="badge badge-warning">Optional</span></label> <input type="text" name="prev_adm_no" class="form-control" id="exampleInputName2" placeholder="Previous Adm No." autofocus autocapitalize=""> </div>
+        <div class="form-group"> <label for="exampleInputName2">Previous Adm. No: <span class="badge badge-warning">Optional</span></label> <input data-required type="text" name="prev_adm_no" class="form-control" id="exampleInputName2" placeholder="Previous Adm No." autofocus autocapitalize=""> </div>
 
         <div class="form-group"> <label for="exampleInputName2">Date Of Adm: </label> <span class="badge badge-danger">Required</span> <input type="date" name="date_of_adm" value="{{now()->toDateString()}}" class="form-control" id="exampleInputName2" placeholder="Your name"> </div>
 
@@ -106,7 +109,6 @@
     <div class="tab">
         <div class="col-lg-12 text-center" style="margin-bottom:20px;">
             <h3 class="h3">Class Details</h3>
-
         </div>
 
         <div class="form-group"> <label for="exampleInputName2">Class: <span class="badge badge-danger">Required</span></label>
@@ -115,7 +117,12 @@
 
         <div class="form-group"> <label for="exampleInputName2">Section: <span class="badge badge-danger">Required</span></label>
             <select name="section_id" id="select_section" class="form-control">
-                <option value="0">Sections</option>
+                <option value="" selected>Select a section below</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
             </select>
         </div>
 
@@ -128,14 +135,13 @@
     <div class="tab">
         <div class="col-lg-12 text-center" style="margin-bottom:20px;">
             <h3 class="h3">Profile Photo</h3>
-
         </div>
 
         <div class="form-group"> <label for="exampleInputName2">Roll No.</label> <input type="text" name="roll_number" class="form-control" value="{{$new_roll}}" id="roll_number" placeholder="Roll No." readonly> </div>
 
         <div class="form-group"> <label for="exampleInputName2">Adm No.</label> <input type="text" class="form-control" name="adm_no" value="{{$new_adm}}" id="exampleInputName2" placeholder="Adm No" readonly> </div>
 
-        <div class="form-group"> <label for="exampleInputName2">Photo:<span class="badge badge-danger">Required</span></label> <input type="file" class="form-control" name="photo" id="exampleInputName2" placeholder=""> </div>
+        <div class="form-group"> <label for="exampleInputName2">Photo: <span class="badge badge-warning">Optional</span></label> <input type="file" class="form-control" name="photo" id="exampleInputName2" placeholder=""> </div>
 
     </div>
 
@@ -164,9 +170,11 @@
         <div class="form-group">
 
             <label for="">Documents verified? <span class="badge badge-danger"></span></label>
+            <div style="display: flex">
+                Verified<input value="1" id="verified" name="verified" type="radio">
+                Not Verified<input value="0" id="verified" checked name="verified" type="radio">
+            </div>
 
-            <input value="1" id="verified" name="verified" type="radio">Verified
-            <input value="0" id="verified" name="verified" type="radio">Not Verified
 
 
         </div>
@@ -205,13 +213,13 @@
         <div class="form-group"> <label for="exampleInputName2">Father Name: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="father_name" id="exampleInputName2" placeholder="Father Name"> </div>
 
 
-        <div class="form-group"> <label for="exampleInputName2">Father Occupation: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="father_occup" id="exampleInputName2" placeholder="Occupation Name"> </div>
+        <div class="form-group"> <label for="exampleInputName2">Father Occupation: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="father_occup" id="exampleInputName2" placeholder="Occupation Name"> </div>
 
 
-        <div class="form-group"> <label for="exampleInputName2">Father UID: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="father_uid" id="exampleInputName2" placeholder="Father UID"> </div>
+        <div class="form-group"> <label for="exampleInputName2">Father UID: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="father_uid" id="exampleInputName2" placeholder="Father UID"> </div>
 
 
-        <div class="form-group"> <label for="exampleInputName2">Father Qualification: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="father_qual" id="exampleInputName2" placeholder="Father Qualification"> </div>
+        <div class="form-group"> <label for="exampleInputName2">Father Qualification: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="father_qual" id="exampleInputName2" placeholder="Father Qualification"> </div>
 
 
 
@@ -226,13 +234,13 @@
         <div class="form-group"> <label for="exampleInputName2">Mother Name: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="mother_name" id="exampleInputName2" placeholder="Mother Name"> </div>
 
 
-        <div class="form-group"> <label for="exampleInputName2">Mother Occupation: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="mother_occup" id="exampleInputName2" placeholder="Occupation Name"> </div>
+        <div class="form-group"> <label for="exampleInputName2">Mother Occupation: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="mother_occup" id="exampleInputName2" placeholder="Occupation Name"> </div>
 
 
         <div class="form-group"> <label for="exampleInputName2">Mother UID: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="mother_uid" id="exampleInputName2" placeholder="Mother UID"> </div>
 
 
-        <div class="form-group"> <label for="exampleInputName2">Mother Qualification: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="mother_qual" id="exampleInputName2" placeholder="Mother Qualification"> </div>
+        <div class="form-group"> <label for="exampleInputName2">Mother Qualification: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="mother_qual" id="exampleInputName2" placeholder="Mother Qualification"> </div>
 
 
 
@@ -249,8 +257,6 @@
 
         <div class="form-group"> <label for="exampleInputName2">Contact No. 1: <span class="badge badge-danger">Required</span></label> <input type="tel" class="form-control" name="tel1" id="exampleInputName2" placeholder="Telephone"> </div>
 
-
-        <div class="form-group"> <label for="exampleInputName2">Contact No. 2: <span class="badge badge-warning">Optional</span></label> <input type="tel" class="form-control" name="tel2" id="exampleInputName2" placeholder="Telephone"> </div>
 
 
         <div class="form-group"> <label for="exampleInputName2">Aadhar UID: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="UID" id="exampleInputName2" placeholder="Aadhar UID"> </div>
@@ -277,40 +283,56 @@
 
 
 
-        <label for="" >Convinience required?</label>
-        <input value="1" id="req" name="required" type="radio">Yes
-        <input value="0" id="nreq" name="required" type="radio">No
+        <div class="form-group">
+            <label for="">Convinience required?</label>
+            <div style="display: flex">
+                YES<input value="1" id="req" name="required" type="radio">
+                NO<input value="0" id="nreq" name="required" type="radio">
+            </div>
+
+        </div>
+
+
 
         <div style="margin-top:20px; display:none;" id="stations" class="form-group"> <label for="exampleInputName2">Stations: <span class="badge badge-danger">Required</span></label>
             {!! Form::select('station_id' , $stations , 0 , ['class'=>'form-control' , 'placeholder'=>'Select Station']) !!}
         </div>
 
-
-
-
-        <div class="form-group"> <label for="exampleInputName2">Parents Annual Income: <span class="badge badge-danger">Required</span></label> <input type="number" name="income" class="form-control" id="exampleInputName2" placeholder="Enter Income"> </div>
-
-
-
-
-        <div class="form-group"> <label for="exampleInputName2">Caste Category: <span class="badge badge-danger">Required</span></label>
-            {!! Form::select('caste_id' , $castes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select caste ']) !!}
+        <div style="margin-top:20px; display:none;" id="other_con" class="form-group"> <label for="exampleInputName2">Other Convinience: <span class="badge badge-danger">Required</span></label>
+            {!! Form::select('other_con' , $other , 0 , ['class'=>'form-control' , 'placeholder'=>'Select Other convinience']) !!}
         </div>
 
 
 
 
-        <div class="form-group"> <label for="exampleInputName2">Religion: <span class="badge badge-danger">Required</span></label>
-            {!! Form::select('religion_id' , $religions , 0 , ['class'=>'form-control' , 'placeholder'=>'Select religion']) !!}
+        <div class="form-group"> <label for="exampleInputName2">Parents Annual Income: <span class="badge badge-danger">Required</span></label> <input type="number" name="annual_income" class="form-control" id="exampleInputName2" placeholder="Enter Income"> </div>
+
+
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group"> <label for="exampleInputName2">Caste Category: <span class="badge badge-danger">Required</span></label>
+                    {!! Form::select('caste_id' , $castes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select caste ']) !!}
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group"> <label for="exampleInputName2">Religion: <span class="badge badge-danger">Required</span></label>
+                    {!! Form::select('religion_id' , $religions , 0 , ['class'=>'form-control' , 'placeholder'=>'Select religion']) !!}
+                </div>
+            </div>
+
         </div>
 
 
 
 
-        <div class="form-group"> <label for="exampleInputName2">Blood Group: <span class="badge badge-danger">Required</span></label> <input type="text" class="form-control" name="blood" id="exampleInputName2" placeholder="Enter Boold Group"> </div>
+
+        <div class="form-group"> <label for="exampleInputName2">Blood Group: <span class="badge badge-warning">Optional</span></label> <input type="text" class="form-control" name="blood" id="exampleInputName2" placeholder="Enter Boold Group"> </div>
 
 
-        
+
 
 
 
@@ -397,10 +419,10 @@
 
     function validateForm() {
 
-        
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        
-      
+
+        document.getElementsByClassName("step")[currentTab].className += " finish";
+
+
     }
 
     function fixStepIndicator(n) {
@@ -417,56 +439,19 @@
 
     $(document).ready(function() {
 
-
-
-
         $('#req').change(function() {
             console.log("done")
-            $('#stations').css('display' , '')
+            $('#stations').css('display', '')
+            $('#other_con').hide()
         });
 
         $('#nreq').change(function() {
+            $('#other_con').css('display', '')
             $('#stations').hide()
+
         });
 
-        // Department Change
-        $('#select_class').change(function() {
 
-            // Department id
-            var id = $(this).val();
-
-            // Empty the dropdown
-            $('#select_section').find('option').not(':first').remove();
-
-            // AJAX request 
-            $.ajax({
-                url: '/getSections/' + id,
-                type: 'get',
-                dataType: 'json',
-                success: function(response) {
-
-                    var len = 0;
-                    if (response['data'] != null) {
-                        len = response['data'].length;
-                    }
-
-                    if (len > 0) {
-                        // Read data and create <option >
-                        for (var i = 0; i < len; i++) {
-
-                            var id = response['data'][i].id;
-                            var name = response['data'][i].name;
-                            var capacity = response['data'][i].capacity;
-
-                            var option = "<option value='" + id + "'>" + name + " || Available Seats: " + capacity + "</option>";
-
-                            $("#select_section").append(option);
-                        }
-                    }
-
-                }
-            });
-        });
 
     });
 </script>

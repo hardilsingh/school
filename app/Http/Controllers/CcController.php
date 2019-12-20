@@ -20,13 +20,10 @@ class CcController extends Controller
     }
 
 
-    public function create() {
+public function create() {
         if (isset($_GET['student_id'])) {
             $id = $_GET['student_id'];
             $student = Students::findOrFail($id);
-            $father = Father::findOrFail($student->father);
-            $mother = Mother::findOrFail($student->mother);
-            $class = Grade::findOrFail($student->class);
             return view("admin.character-certificates.create" , compact(['student' , 'father' , 'mother' , 'class']));
         }
     }

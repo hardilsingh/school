@@ -41,17 +41,21 @@
         <div class="col-lg-12">
             <div class="form-group"> <label>Student name</label> <input value="{{$student->name}}" name="name" type="text" class="form-control" placeholder="Enter name"> </div>
 
+            <div class="form-group"> <label>Admission number</label> <input value="{{$student->adm_no}}" name="adm_no" type="text" class="form-control" placeholder="Enter admission number"> </div>
 
-            <div class="form-group"> <label>Father Name</label> <input value="{{$father->name}}" name="father_name" type="text" class="form-control" placeholder="Enter name"> </div>
+
+            <div class="form-group"> <label>Father Name</label> <input value="{{$student->father}}" name="father_name" type="text" class="form-control" placeholder="Enter name"> </div>
 
 
-            <div class="form-group"> <label>Class</label> <input value="{{$class->class}}" name="class" type="text" class="form-control" placeholder="Enter class"> </div>
+            <div class="form-group"> <label>Class</label> <input value="{{$student->grade->class}}-{{$student->section}}" name="class" type="text" class="form-control" placeholder="Enter class"> </div>
 
 
 
             <div class="form-group"> <label>With whom</label> <input name="with_whom" type="text" class="form-control" placeholder="Enter name"> </div>
 
             <div class="form-group"> <label>Relation</label> <input name="relation" type="text" class="form-control" placeholder="Enter relation"> </div>
+
+
 
             <div class="form-group"> <label>Reason</label> <textarea name="reasons" class="form-control" id="" cols="30" rows="4"></textarea></div>
 

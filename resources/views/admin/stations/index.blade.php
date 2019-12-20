@@ -1,22 +1,14 @@
 @extends('layouts.admin')
 
-@section('css-plugins')
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-@stop
 
 @section('content')
 
 
-<div class="row" style="margin-bottom:100px;" class="text-center">
+<div class="row" style="margin-bottom:30px;" class="text-center">
     <div class="col-lg-6" >
-        <h2><u>Stations</u></h2>
+        <h2><u>Stations</u> <a href="{{route('stations.create')}}" class="btn btn-warning" style="margin-left:20px;"><i class="fa fa-plus-circle"></i> Add new</a></h2>
     </div>
-    <div class="col-lg-6">
-        <a href="#" class="btn btn-success"><i style="color:white" class="glyphicon glyphicon-export"></i> Export Excel</a>
-        <a href="#" class="btn btn-primary" style="margin-left:20px;"><i class="fa fa-search"></i> Search</a>
-        <a href="{{route('stations.create')}}" class="btn btn-warning" style="margin-left:20px;"><i class="fa fa-plus-circle"></i> Add new</a>
-
-    </div>
+   
 </div>
 
 
@@ -47,12 +39,13 @@
 
 <div class="col-lg-12">
     <div class="row">
-        <table id="myTable" class="display">
+        <table id="myTable" class="table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Transport</th>
+                    <th>Transport Fee</th>
+                    <th>Bus Number</th>
                     <th>Action</th>
                     
                 </tr>
@@ -64,6 +57,7 @@
                     <td>{{$station->id}}</td>
                     <td>{{$station->name}}</td>
                     <td>{{$station->fee}}</td>
+                    <td>{{$station->bus}}</td>
                     <td style="display:flex;">
                         {!! Form::model($station , [
                         'action'=>['StationController@destroy' , $station->id],

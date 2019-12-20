@@ -38,10 +38,15 @@
 
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="col-lg-3">
-                <div class="form-group"> <label>Station Name</label> <input value="{{$station->name}}" name="name" type="text" class="form-control" placeholder="Enter name"> </div>
-            </div>
+
+        <div class="col-lg-4">
+            <div class="form-group"> <label>Station Name</label> <input value="{{$station->name}}" name="name" type="text" class="form-control" placeholder="Enter name"> </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group"> <label>Transport Fee</label> <input value="{{$station->fee}}" name="fee" type="text" class="form-control" placeholder="Enter Transport Fee"> </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group"> <label>Bus Number</label> <input value="{{$station->bus}}" name="bus" type="text" class="form-control" placeholder="Enter Bus number"> </div>
         </div>
     </div>
 

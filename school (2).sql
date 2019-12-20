@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2019 at 05:41 PM
+-- Generation Time: Dec 01, 2019 at 09:24 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.28
 
@@ -194,7 +194,10 @@ INSERT INTO `fathers` (`id`, `name`, `student_id`, `occupation`, `UID`, `qual`, 
 (12, 'Kanwaljit singh', 11, 'bussiness', '123456789012', '+12', '2019-11-29 05:06:29', '2019-11-29 05:06:29'),
 (13, 'Kanwaljit singh', 12, 'bussiness', '123456789012', '+12', '2019-11-29 05:07:15', '2019-11-29 05:07:15'),
 (14, 'Kanwaljit singh', 13, 'bussiness', '123456789012', '+12', '2019-11-29 05:08:28', '2019-11-29 05:08:28'),
-(15, 'Kanwaljit singh', 14, 'bussiness', '123456789012', '+12', '2019-11-29 05:17:52', '2019-11-29 05:17:52');
+(15, 'Kanwaljit singh', 14, 'bussiness', '123456789012', '+12', '2019-11-29 05:17:52', '2019-11-29 05:17:52'),
+(16, 'Kanwaljit singh', 15, 'bussiness', '0', '+12', '2019-12-01 17:05:13', '2019-12-01 17:05:13'),
+(17, 'Kanwaljit singh', 16, 'bussiness', '0', '+12', '2019-12-01 17:06:37', '2019-12-01 17:06:37'),
+(18, 'Kanwaljit singh', 17, 'bussiness', '0', '+12', '2019-12-01 17:07:13', '2019-12-01 17:07:13');
 
 -- --------------------------------------------------------
 
@@ -209,23 +212,23 @@ CREATE TABLE `fees` (
   `q2` int(11) NOT NULL,
   `q3` int(11) NOT NULL,
   `q4` int(11) NOT NULL,
-  `fee` int(11) NOT NULL,
-  `transport_fee` int(11) NOT NULL,
-  `computer_fee` int(11) NOT NULL,
-  `totalFee` int(11) NOT NULL,
-  `paid_fee` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `concession` int(11) NOT NULL
+  `concession` int(11) DEFAULT NULL,
+  `balance1` int(191) DEFAULT NULL,
+  `balance2` int(191) DEFAULT NULL,
+  `balance3` int(191) DEFAULT NULL,
+  `balance4` int(191) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fees`
 --
 
-INSERT INTO `fees` (`id`, `student_id`, `q1`, `q2`, `q3`, `q4`, `fee`, `transport_fee`, `computer_fee`, `totalFee`, `paid_fee`, `created_at`, `updated_at`, `concession`) VALUES
-(1, 13, 0, 0, 0, 0, 1050, 2500, 250, 1300, 0, '2019-11-29 05:08:28', '2019-11-29 16:31:20', 24),
-(2, 14, 1, 0, 1, 0, 1050, 2500, 250, 2500, 0, '2019-11-29 05:17:52', '2019-11-29 05:17:52', 0);
+INSERT INTO `fees` (`id`, `student_id`, `q1`, `q2`, `q3`, `q4`, `created_at`, `updated_at`, `concession`, `balance1`, `balance2`, `balance3`, `balance4`) VALUES
+(1, 13, 0, 1, 1, 1, '2019-11-29 05:08:28', '2019-12-01 17:12:01', 24, 0, 0, 0, 0),
+(2, 14, 1, 1, 1, 0, '2019-11-29 05:17:52', '2019-12-01 17:15:48', 24, NULL, 0, NULL, NULL),
+(3, 17, 0, 0, 0, 0, '2019-12-01 17:07:13', '2019-12-01 17:14:25', 24, 64, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -366,7 +369,10 @@ INSERT INTO `mothers` (`id`, `student_id`, `name`, `occupation`, `UID`, `qual`, 
 (12, 11, 'Raminder KAur', 'bussiness', '0', '+12', '2019-11-29 05:06:29', '2019-11-29 05:06:29'),
 (13, 12, 'Raminder KAur', 'bussiness', '0', '+12', '2019-11-29 05:07:15', '2019-11-29 05:07:15'),
 (14, 13, 'Raminder KAur', 'bussiness', '0', '+12', '2019-11-29 05:08:28', '2019-11-29 05:08:28'),
-(15, 14, 'Raminder KAur', 'bussiness', '123456789012', '+12', '2019-11-29 05:17:52', '2019-11-29 05:17:52');
+(15, 14, 'Raminder KAur', 'bussiness', '123456789012', '+12', '2019-11-29 05:17:52', '2019-11-29 05:17:52'),
+(16, 15, 'Raminder KAur', 'bussiness', '0', '+12', '2019-12-01 17:05:13', '2019-12-01 17:05:13'),
+(17, 16, 'Raminder KAur', 'bussiness', '0', '+12', '2019-12-01 17:06:37', '2019-12-01 17:06:37'),
+(18, 17, 'Raminder KAur', 'bussiness', '0', '+12', '2019-12-01 17:07:13', '2019-12-01 17:07:13');
 
 -- --------------------------------------------------------
 
@@ -438,7 +444,7 @@ CREATE TABLE `sections` (
 --
 
 INSERT INTO `sections` (`id`, `name`, `grade_id`, `created_at`, `updated_at`, `capacity`) VALUES
-(11, 'A', 10, '2019-11-29 04:13:16', '2019-11-29 05:17:52', 25);
+(11, 'A', 10, '2019-11-29 04:13:16', '2019-12-01 17:07:13', 22);
 
 -- --------------------------------------------------------
 
@@ -526,17 +532,6 @@ CREATE TABLE `students` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `students`
---
-
-INSERT INTO `students` (`id`, `name`, `admission_date`, `session`, `previous_ad_number`, `adm_type`, `class`, `section`, `stream`, `roll_number`, `adm_no`, `gender`, `DOB_certificate`, `slc`, `report_card`, `aadhar_card`, `tc`, `document_verified`, `dob`, `father`, `mother`, `tel1`, `tel2`, `addhar_number`, `address`, `convinience_req`, `station`, `other_con`, `cast_category`, `religion`, `blood_group`, `annual_income`, `path`, `created_at`, `updated_at`) VALUES
-(6, 'Hardil Singh', '2019-05-15', '2019-2020', '123465ABC', 0, 8, 9, 3, 1, '1', 0, '1', '1', '1', '1', '1', 1, '2019-07-13', 7, 7, '7340910031', '+33617998920', '123456789012', '662/7 Mehar chand Road Gurdaspur', 1, 2, NULL, 2, 3, '0+', 2500000, '1572613419.jpg', '2019-11-01 13:03:39', '2019-11-01 13:03:39'),
-(7, 'Hardil Singh', '2019-11-28', '2019-2020', '123465ABC', 1, 8, 9, 3, 2, '2', 0, '1', '1', '1', '1', '1', 0, '2019-07-13', 8, 8, '7340910031', '7340910031', '123456789012', '662/7 Mehar chand Road Gurdaspur', 1, 2, NULL, 1, 1, '0+', 2555, '1574929059.png', '2019-11-28 08:17:39', '2019-11-28 08:17:39'),
-(9, 'Hardil Singh', '2019-11-28', '2019-2020', '0', 0, 8, 9, 3, 3, '3', 0, '0', '1', '1', '1', '0', 0, '2222-07-13', 10, 10, '7340910031', '0', '0', '662/7 Mehar chand Road Gurdaspur', 0, 0, NULL, 2, 1, '0+', 6565, '1574930590.png', '2019-11-28 08:43:10', '2019-11-28 08:43:10'),
-(13, 'Hardil Singh', '2019-11-29', '2019-2020', '0', 0, 10, 11, 3, 4, '4', 0, '1', '1', '1', '0', '1', 0, '2019-05-13', 14, 14, '7340910031', '0', '123456789012', '662/7 Mehar chand Road Gurdaspur', 1, 3, NULL, 1, 2, '0+', 12500, '1575004108.png', '2019-11-29 05:08:28', '2019-11-29 05:08:28'),
-(14, 'Hardil Singh', '2019-11-29', '2019-2020', '0', 0, 10, 11, 3, 5, '5', 0, '1', '1', '0', '1', '1', 1, '2019-05-13', 15, 15, '7340910031', '0', '0', '662/7 Mehar chand Road Gurdaspur', 0, 0, NULL, 1, 1, '0+', 1522200, '1575004672.png', '2019-11-29 05:17:52', '2019-11-29 05:17:52');
 
 -- --------------------------------------------------------
 
@@ -782,13 +777,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `fathers`
 --
 ALTER TABLE `fathers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `fees`
 --
 ALTER TABLE `fees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `gate_passes`
@@ -818,7 +813,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `mothers`
 --
 ALTER TABLE `mothers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `other_cons`
@@ -854,7 +849,7 @@ ALTER TABLE `streams`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `transfer_certificates`

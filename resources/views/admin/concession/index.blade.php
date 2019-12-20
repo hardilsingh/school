@@ -7,15 +7,9 @@
 @section('content')
 
 
-
-
-
-<div class="row" style="margin-bottom:100px;" class="text-center">
+<div class="row" style="margin-bottom:30px;" class="text-center">
     <div class="col-lg-6">
-        <h2><u>Concessions</u></h2>
-    </div>
-    <div class="col-lg-6">
-        <a href="{{route('concession.create')}}" class="btn btn-warning" style="margin-left:20px;"><i class="fa fa-plus-circle"></i> Add new</a>
+        <h2><u>Concessions</u> <a href="{{route('concession.create')}}" class="btn btn-warning" style="margin-left:20px;"><i class="fa fa-plus-circle"></i> Add new</a></h2>
     </div>
 </div>
 
@@ -48,8 +42,8 @@
 
 <div class="col-lg-12">
     <div class="row">
-        <table id="myTable" class="display">
-            <thead>
+        <table id="myTable" class="table">
+            <thead class="thead-dark">
                 <tr>
                     <th>#</th>
                     <th>Name</th>
