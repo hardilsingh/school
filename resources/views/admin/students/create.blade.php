@@ -86,64 +86,105 @@ Register Students
 
     <div class="tab">
 
-        <div class="col-lg-12 text-center" style="margin-bottom:20px;">
-            <h3 class="h3">Admission Information</h3>
+        <div class="row">
+            <div class="col-lg-12 text-center" style="margin-bottom:20px;">
+                <h3 class="h3">Admission Information</h3>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-lg-12" style="display: flex;">
+                <div class="col-lg-3">
+                    <div class="form-group"> <label for="exampleInputName2">Prev Adm. No: <span class="badge badge-warning">Optional</span></label> <input data-required type="text" name="prev_adm_no" class="form-control" id="exampleInputName2" placeholder="Previous Adm No." autofocus autocapitalize=""> </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group"> <label for="exampleInputName2">Date Of Adm: </label> <span class="badge badge-danger">Required</span> <input type="date" name="date_of_adm" value="{{now()->toDateString()}}" class="form-control" id="exampleInputName2" placeholder="Your name"> </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group"> <label for="exampleInputName2">Session</label> <input type="text" class="form-control" name="session" value="{{now()->year}}-{{now()->year+1}}" id="exampleInputName2" placeholder="" readonly> </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group"> <label for="exampleInputName2">Adm Type: <span class="badge badge-danger">Required</span></label>
+                        <select name="adm_type" id="" class="form-control">
+                            <option value="">Select Adm Type</option>
+                            <option value="0">New Adm</option>
+                            <option value="1">Re Adm</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
-        <div class="form-group"> <label for="exampleInputName2">Previous Adm. No: <span class="badge badge-warning">Optional</span></label> <input data-required type="text" name="prev_adm_no" class="form-control" id="exampleInputName2" placeholder="Previous Adm No." autofocus autocapitalize=""> </div>
 
-        <div class="form-group"> <label for="exampleInputName2">Date Of Adm: </label> <span class="badge badge-danger">Required</span> <input type="date" name="date_of_adm" value="{{now()->toDateString()}}" class="form-control" id="exampleInputName2" placeholder="Your name"> </div>
+        <div class="row">
+            <div class="col-lg-12" style="display: flex;">
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Class: <span class="badge badge-danger">Required</span></label>
+                        {!! Form::select('grade_id' , $classes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select class' , 'id'=>'select_class']) !!}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Section: <span class="badge badge-danger">Required</span></label>
+                        <select name="section_id" id="select_section" class="form-control">
+                            <option value="" selected>Select a section below</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Stream:<span class="badge badge-danger">Required</span></label>
+                        {!! Form::select('stream_id' , $streams , 0 , ['class'=>'form-control' , 'placeholder'=>'Select Streams']) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="form-group"> <label for="exampleInputName2">Session</label> <input type="text" class="form-control" name="session" value="{{now()->year}}-{{now()->year+1}}" id="exampleInputName2" placeholder="" readonly> </div>
+        <div class="row">
+            <div class="col-lg-12" style="display: flex;">
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Roll No.</label> <input type="text" name="roll_number" class="form-control" value="{{$new_roll}}" id="roll_number" placeholder="Roll No." readonly> </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Adm No.</label> <input type="text" class="form-control" name="adm_no" value="{{$new_adm}}" id="exampleInputName2" placeholder="Adm No" readonly> </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Photo: <span class="badge badge-warning">Optional</span></label> <input type="file" class="form-control" name="photo" id="exampleInputName2" placeholder=""> </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="form-group"> <label for="exampleInputName2">Adm Type: <span class="badge badge-danger">Required</span></label>
-            <select name="adm_type" id="" class="form-control">
-                <option value="">Select Adm Type</option>
-                <option value="0">New Adm</option>
-                <option value="1">Re Adm</option>
-            </select>
+
+        <div class="row">
+            <div class="col-lg-12" style="display: flex;">
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Name: <span class="badge badge-danger">Required</span></label> <input type="text" name="name" class="form-control" id="roll_number" placeholder="Enter Name"> </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Gender: <span class="badge badge-danger">Required</span></label>
+                        <select name="gender" id="" class="form-control">
+                            <option value="">Select gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group"> <label for="exampleInputName2">Date Of Birth: <span class="badge badge-danger">Required</span></label> <input type="date" class="form-control" name="DOB" id="exampleInputName2" placeholder="Your name"> </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <div class="tab">
-        <div class="col-lg-12 text-center" style="margin-bottom:20px;">
-            <h3 class="h3">Class Details</h3>
-        </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Class: <span class="badge badge-danger">Required</span></label>
-            {!! Form::select('grade_id' , $classes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select class' , 'id'=>'select_class']) !!}
-        </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Section: <span class="badge badge-danger">Required</span></label>
-            <select name="section_id" id="select_section" class="form-control">
-                <option value="" selected>Select a section below</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Stream (Select N/A if not selected):<span class="badge badge-danger">Required</span></label>
-            {!! Form::select('stream_id' , $streams , 0 , ['class'=>'form-control' , 'placeholder'=>'Select Streams']) !!}
-        </div>
-
-    </div>
-
-    <div class="tab">
-        <div class="col-lg-12 text-center" style="margin-bottom:20px;">
-            <h3 class="h3">Profile Photo</h3>
-        </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Roll No.</label> <input type="text" name="roll_number" class="form-control" value="{{$new_roll}}" id="roll_number" placeholder="Roll No." readonly> </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Adm No.</label> <input type="text" class="form-control" name="adm_no" value="{{$new_adm}}" id="exampleInputName2" placeholder="Adm No" readonly> </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Photo: <span class="badge badge-warning">Optional</span></label> <input type="file" class="form-control" name="photo" id="exampleInputName2" placeholder=""> </div>
-
-    </div>
 
     <div class="tab">
         <div class="col-lg-12 text-center" style="margin-bottom:20px;">
@@ -180,28 +221,6 @@ Register Students
         </div>
     </div>
 
-    <div class="tab">
-        <div class="col-lg-12 text-center" style="margin-bottom:20px;">
-            <h3 class="h3">Basic Information</h3>
-
-        </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Name: <span class="badge badge-danger">Required</span></label> <input type="text" name="name" class="form-control" id="roll_number" placeholder="Enter Name"> </div>
-
-
-
-
-        <div class="form-group"> <label for="exampleInputName2">Gender: <span class="badge badge-danger">Required</span></label>
-            <select name="gender" id="" class="form-control">
-                <option value="">Select gender</option>
-                <option value="0">Male</option>
-                <option value="1">Female</option>
-            </select>
-        </div>
-
-        <div class="form-group"> <label for="exampleInputName2">Date Of Birth: <span class="badge badge-danger">Required</span></label> <input type="date" class="form-control" name="DOB" id="exampleInputName2" placeholder="Your name"> </div>
-
-    </div>
 
     <div class="tab">
         <div class="col-lg-12 text-center" style="margin-bottom:20px;">
@@ -347,9 +366,6 @@ Register Students
 
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align:center;margin-top:40px;">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>

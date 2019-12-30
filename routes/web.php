@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/students', 'StudentsController');
 Route::get('getSections/{id}', 'StudentsController@getSections');
 Route::get('getStudents', 'StudentsController@getStudents');
-Route::patch('/basicUpdate' , 'StudentsController@basicUpdate');
+Route::patch('/basicUpdate', 'StudentsController@basicUpdate');
 
 Route::get('/report', 'StudentsController@report');
 
@@ -38,13 +39,14 @@ Route::resource('/annual-certificates', 'ExpenseController');
 Route::resource('/gate-passes', 'GatePassController');
 Route::resource('/employee', 'EmployeeController');
 
-Route::get('/feeform' , 'FeeController@feeForm');
-Route::get('/saveData' , 'FeeController@saveData');
+Route::get('/feeform', 'FeeController@feeForm');
+Route::get('/exempt', 'FeeController@exempt');
+Route::get('/saveData', 'FeeController@saveData');
 
 
 Route::get('/fee/student/{id}', 'FeeController@manage');
 Route::resource('/fee', 'FeeController');
-Route::post('/fee/student/concessionapply', 'FeeController@updateConcession');
+Route::get('/concessionapply', 'FeeController@updateConcession');
 Route::resource('/concession', 'ConcessionController');
 Route::resource('/prints', 'PrintController');
 Route::get('/searchedlist', 'PrintController@prints');
@@ -54,6 +56,11 @@ Route::get('/exportpdf', 'PrintController@pdf');
 Route::resource('/customPrints', 'CustomPrintController');
 
 Route::resource('/deactivated', 'DeactivatedController');
-Route::get('/activateStudent' , 'DeactivatedController@activate');
-Route::get('/deactivateStudent' , 'DeactivatedController@deactivate');
+Route::get('/activateStudent', 'DeactivatedController@activate');
+Route::get('/deactivateStudent', 'DeactivatedController@deactivate');
 
+Route::resource('/promote', 'PromoteController');
+Route::get('/promoteStudents', 'PromoteController@promote');
+Route::resource('/reciepts', 'RecieptController');
+Route::get('/createReciept', 'RecieptController@createReciept');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+
+@section('heading')
+Streams
+@stop
+
 @section('css-plugins')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 @stop
@@ -7,39 +12,47 @@
 @section('content')
 
 
-<div class="row" style="margin-bottom:30px;" class="text-center">
-    <div class="col-lg-6">
-        <h2><u>Streams</u> <a href="{{route('streams.create')}}" class="btn btn-warning" style="margin-left:20px;"><i class="fa fa-plus-circle"></i> Add new</a></h2>
-    </div>
-</div>
 
-@if(Session::has('deleted'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('deleted') }}</p>
-    </div>
-</div>
-@endif
-
-@if(Session::has('updated'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('updated') }}</p>
-    </div>
-</div>
-@endif
-
-@if(Session::has('created'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('created') }}</p>
-    </div>
-</div>
-@endif
+<div class="form-three widget-shadow" style="margin-bottom:20px;">
 
 
-<div class="col-lg-12">
+    {!! Form::open([
+
+    'action'=>'StreamController@store',
+    'method'=>'POST',
+    'class'=>'form-horizontal'
+
+    ]) !!}
+
+
+
     <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-3">
+                <div class="form-group"> <label>Stream</label> <input required name="name" type="text" class="form-control" placeholder="Enter name"> </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-3">
+            <button class="btn btn-md btn-success" type="submit">Submit</button>
+        </div>
+    </div>
+
+
+
+    {!! Form::close() !!}
+
+</div>
+
+
+<hr class="hr">
+
+<div class="row">
+    <div class="col-lg-12">
+
         <table id="myTable" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -60,9 +73,9 @@
                         'method'=>'DELETE'
 
                         ]) !!}
-                        {!! Form::submit('Delete' , ['class'=>'btn btn-danger btn-lg']) !!}
+                        {!! Form::submit('Delete' , ['class'=>'btn btn-danger btn-md']) !!}
                         {!! Form::close() !!}
-                        <a href="{{route('streams.edit' , $stream->id)}}" style="margin-left:10px;" class="btn btn-lg btn-warning">Edit</a>
+                        <a href="{{route('streams.edit' , $stream->id)}}" style="margin-left:10px;" class="btn btn-md btn-warning">Edit</a>
                     </td>
                 </tr>
 

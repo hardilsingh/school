@@ -26,6 +26,10 @@
     <script src="/plugins/jquery/jquery.min.js"></script>
 
 
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
+
 
 
 
@@ -34,6 +38,14 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+<style>
+
+    .table {
+        text-transform: uppercase;
+    }
+
+</style>
     <div class="wrapper">
 
         @include('includes.nav')

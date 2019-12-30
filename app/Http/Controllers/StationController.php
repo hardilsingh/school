@@ -82,7 +82,7 @@ class StationController extends Controller
     {
         if (isset($_GET['station_id'])) {
             $id = $_GET['station_id'];
-            $sectionData['data'] = $students = Students::where('station', $id)->get();
+            $sectionData['data'] = $students = Students::orderBy('name')->where('station', $id)->get();
 
             echo json_encode($sectionData);
             exit;

@@ -61,7 +61,7 @@ Dashboard
 
             <div class="info-box-content">
                 <span class="info-box-text">Collection</span>
-                <span class="info-box-number"></span>
+                <span class="info-box-number">{{$collection}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -121,7 +121,7 @@ Dashboard
                             <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                         </div>
                         <div class="product-info">
-                            <a href="javascript:void(0)" class="product-title">{{$student->name}}
+                            <a href="/students/{{$student->id}}" class="product-title">{{$student->name}}
                                 <span class="badge badge-warning float-right"></span></a>
                             <span class="product-description">
                                 {{$student->admission_date}} | Class: {{$student->grade->class}}-{{$student->section}}

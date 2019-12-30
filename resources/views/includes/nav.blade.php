@@ -11,6 +11,9 @@
           <li class="nav-item d-none d-sm-inline-block">
               <a href="{{route('students.create')}}" class="nav-link">Register Students</a>
           </li>
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="{{ url('/logout') }}" class="nav-link"> Logout </a>
+          </li>
       </ul>
 
   </nav>

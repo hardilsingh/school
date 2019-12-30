@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Caste;
 use App\Grade;
+use App\Reciept;
 use App\Religion;
 use App\Students;
 use Illuminate\Http\Request;
@@ -38,7 +39,8 @@ class HomeController extends Controller
         $castes = Caste::all();
         $students_dis = Students::all();
         $students_latest = Students::orderBy('admission_date' , 'DESC')->paginate(5);
+        $collection = Reciept::sum('paid');
 
-        return view('home' , compact(['male' , 'female' , 'students' , 'religions' , 'classes' , 'castes' , 'students_dis' , 'students_latest']));
+        return view('home' , compact(['male' , 'female' , 'students' , 'religions' , 'classes' , 'castes' , 'students_dis' , 'students_latest' , 'collection']));
     }
 }

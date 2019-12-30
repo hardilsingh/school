@@ -10,26 +10,100 @@
 
 <body>
 
-<style>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
 
-    table {
-        border-collapse: collapse;
-    }
+        body {
+            font-size: 15px;
+        }
 
-    body {
-        font-size: 18px;
-    }
+        tr {
+            padding: 5px;
+        }
 
-    tr {
-        padding: 10px;
-    }
+        td {
+            padding: 5px;
 
-    td {
-        padding: 10px;
-        
-    }
+        }
+    </style>
+    <table border="1" style="width:100%">
+        <tbody>
+            <tr>
+                <td>Admission No:</td>
+                <td> {{$gate->adm_no}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <br>
+            <br>
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    {{$gate->name}}
+                </td>
+                <td>
+                    Class and Section:
+                </td>
+                <td>
+                    {{$gate->class}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Father Name:
+                </td>
+                <td>
+                    {{$gate->father_name}}
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Village:
+                </td>
+                <td>
+                    {{$student->station !== 0 ? $student->stationName->name : 'N/A'}}
+                </td>
+                <td>
+                    Bus No:
+                </td>
+                <td>
+                    {{$student->station !== 0 ? $student->stationName->bus : 'N/A'}}
+                </td>
+            </tr>
 
-</style>
+            <tr>
+                <td>
+                    With Whom:
+                </td>
+                <td>
+                    {{$gate->with_whom}}
+                </td>
+                <td>
+                    Relation:
+                </td>
+                <td>
+                    {{$gate->relation}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Reason:
+                </td>
+                <td>
+                    {{$gate->reasons}}
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
     <table border="1" style="width:100%">
         <tbody>
             <tr>

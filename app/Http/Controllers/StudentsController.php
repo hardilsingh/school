@@ -26,9 +26,9 @@ class StudentsController extends Controller
     {
         //
         $classes = Grade::pluck('class', 'id');
-        $students_latest = Students::orderBy('admission_date' , 'DESC')->paginate(3);
+        $students_latest = Students::orderBy('admission_date', 'DESC')->paginate(3);
 
-        return view('admin.students.index', compact(['classes' , 'students_latest']));
+        return view('admin.students.index', compact(['classes', 'students_latest']));
     }
 
     /**
@@ -41,7 +41,7 @@ class StudentsController extends Controller
         //
         $classes = Grade::pluck("class", "id");
         $stations = Station::pluck('name', 'id');
-        $other = ExplicitCon::pluck('name' , 'id');
+        $other = ExplicitCon::pluck('name', 'id');
         $streams = Stream::pluck('name', 'id');
         $roll_number = Students::orderBy('admission_date', 'DESC')->first();
 
@@ -61,7 +61,7 @@ class StudentsController extends Controller
 
         $castes = Caste::pluck('name', 'id');
         $religions = Religion::pluck('name', 'id');
-        return view("admin.students.create", compact(['classes', 'stations', 'streams', 'new_roll', 'new_adm', 'religions', 'castes' , 'other']));
+        return view("admin.students.create", compact(['classes', 'stations', 'streams', 'new_roll', 'new_adm', 'religions', 'castes', 'other']));
     }
 
     /**
@@ -107,8 +107,13 @@ class StudentsController extends Controller
             'blood_group' => $input['blood'] !== null ? $input['blood'] : 0,
             'annual_income' => $input['annual_income'] !== null ? $input['annual_income'] : 0,
             'adm_type' => $input['adm_type'] !== null ? $input['adm_type'] : 0,
-            'status'=>0,
-            'other_con'=>$input['other_con'] == null ? 0 : $input['other_con']
+            'status' => 1,
+            'other_con' => $input['other_con'] == null ? 0 : $input['other_con']
+        ]);
+
+
+        $fee = Fee::create([
+            'student_id' => $student->id,
         ]);
 
         $mother = Mother::create([
@@ -116,15 +121,15 @@ class StudentsController extends Controller
             'name' => $input['mother_name'] !== null ? $input['mother_name'] : 'N/A',
             'occupation' => $input['mother_occup'] == null ? 'N/A' : $input['mother_occup'],
             'UID' => $input['mother_uid'] == null ? 0 : $input['mother_uid'],
-            'qual' => $input['mother_qual'],
+            'qual' => $input['mother_qual'] == null ? 0 : $input['mother_qual'],
         ]);
 
         $father = Father::create([
             'student_id' => $student->id,
-            'name' => $input['father_name'],
-            'occupation' => $input['father_occup'],
+            'name' => $input['father_name'] !== null ? $input['father_name'] : 'N/A',
+            'occupation' => $input['father_occup'] == null ? 0 : $input['occup'],
             'UID' => $input['father_uid'] == null ? 0 : $input['father_uid'],
-            'qual' => $input['father_qual'],
+            'qual' => $input['mother_qual'] == null ? 0 : $input['mother_qual'],
         ]);
 
         $class = Grade::findOrFail($request->grade_id);
@@ -136,13 +141,7 @@ class StudentsController extends Controller
             'capacity' => $section->capacity - 1,
         ]);
 
-        $fee = Fee::create([
-            'student_id' => $student->id,
-            'q1' => 0,
-            'q2' => 0,
-            'q3' => 0,
-            'q4' => 0,
-        ]);
+
 
 
         $path = public_path("/photos");
@@ -159,7 +158,7 @@ class StudentsController extends Controller
         ]);
 
         $request->session()->flash('created', "Student registered successfully");
-        return redirect('/students');
+        return redirect('/students/'.$student->id);
     }
 
     /**
@@ -195,9 +194,9 @@ class StudentsController extends Controller
         $adm_number = Students::orderBy('id', 'DESC')->get()->first();
         $castes = Caste::pluck('name', 'id');
         $religions = Religion::pluck('name', 'id');
-        $other = ExplicitCon::pluck('name' , 'id');
+        $other = ExplicitCon::pluck('name', 'id');
 
-        return view("admin.students.edit", compact(['classes', 'stations', 'streams', 'roll_number', 'adm_number', 'religions', 'castes', 'student', 'sections' , 'other']));
+        return view("admin.students.edit", compact(['classes', 'stations', 'streams', 'roll_number', 'adm_number', 'religions', 'castes', 'student', 'sections', 'other']));
     }
 
     /**
@@ -238,11 +237,11 @@ class StudentsController extends Controller
 
         if (isset($_GET['keyword'])) {
             $keyword = $_GET['keyword'];
-            $sectionData['data'] = Students::where('name', 'like', '%' . $keyword . '%')->orWhere('tel1', $keyword)->orWhere('tel2', $keyword)->orWhere('adm_no', $keyword)->get();
+            $sectionData['data'] = Students::orderBy('name')->where('name', 'like', '%' . $keyword . '%')->orWhere('tel1', $keyword)->orWhere('tel2', $keyword)->orWhere('adm_no', $keyword)->orWhere('father', 'like', '%' . $keyword . '%')->get();
         } else {
             $class = $_GET['grade'];
             $section = $_GET['section'];
-            $sectionData['data'] = Students::where('class', $class)->where('section', $section)->get();
+            $sectionData['data'] = Students::orderBy('name')->where('class', $class)->where('section', $section)->get();
         }
 
 
@@ -250,23 +249,22 @@ class StudentsController extends Controller
         exit;
     }
 
-    public function report() {
+    public function report()
+    {
 
         $report = $_GET['by'];
 
 
         $students = Students::count();
-        $male = Students::where("gender" , 0)->count();
-        $female = Students::where("gender" , 1)->count();
+        $male = Students::where("gender", 0)->count();
+        $female = Students::where("gender", 1)->count();
 
         $religions = Religion::all();
         $classes = Grade::all();
         $castes = Caste::all();
         $students_dis = Students::all();
-        $students_latest = Students::orderBy('admission_date' , 'DESC')->paginate(5);
+        $students_latest = Students::orderBy('admission_date', 'DESC')->paginate(5);
 
-        return view('admin.reports.index' , compact(['male' , 'female' , 'students' , 'religions' , 'classes' , 'castes' , 'students_dis' , 'students_latest' , 'report']));
+        return view('admin.reports.index', compact(['male', 'female', 'students', 'religions', 'classes', 'castes', 'students_dis', 'students_latest', 'report']));
     }
-
-
 }

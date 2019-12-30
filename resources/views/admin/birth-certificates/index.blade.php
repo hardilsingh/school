@@ -15,29 +15,7 @@
 
 
 
-@if(Session::has('deleted'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('deleted') }}</p>
-    </div>
-</div>
-@endif
 
-@if(Session::has('updated'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('updated') }}</p>
-    </div>
-</div>
-@endif
-
-@if(Session::has('created'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('created') }}</p>
-    </div>
-</div>
-@endif
 
 
 <div class="col-lg-12">
@@ -72,10 +50,10 @@
                         'method'=>'DELETE'
 
                         ]) !!}
-                        {!! Form::submit('Delete' , ['class'=>'btn btn-danger btn-lg']) !!}
+                        {!! Form::submit('Delete' , ['class'=>'btn btn-danger btn-md']) !!}
                         {!! Form::close() !!}
-                        <a href="{{route('birth-certificates.edit' , $certificate->id)}}" style="margin-left:10px;" class="btn btn-lg btn-warning">Edit</a>
-                        <a href="{{route('birth-certificates.show' , $certificate->id)}}" style="margin-left:10px;" target="_blank" class="btn btn-lg btn-success">Show</a>
+                        <a href="{{route('birth-certificates.edit' , $certificate->id)}}" style="margin-left:10px;" class="btn btn-md btn-warning">Edit</a>
+                        <a href="{{route('birth-certificates.show' , $certificate->id)}}" style="margin-left:10px;" target="_blank" class="btn btn-md btn-success">Show</a>
                     </td>
 
                 </tr>

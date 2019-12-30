@@ -1,4 +1,3 @@
-
 @if(Auth::user()->role == 1)
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -47,6 +46,18 @@
                     <a href="{{route('fee.index')}}" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
                         <span>Fee Manager</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('reciepts.index')}}" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>Fee Reciepts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('gate-passes.index')}}" class="nav-link">
+                        <i class="fas fa-money-check-alt nav-icon"></i>
+                        <span>Issued Gate Passes</span>
                     </a>
                 </li>
 
@@ -156,6 +167,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('promote.index')}}" class="nav-link">
+                        <i class="fa fa-user nav-icon"></i>
+                        <span>Promote Classes</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{route('deactivated.index')}}" class="nav-link">
                         <i class="fas fa-times-circle nav-icon"></i>
                         <span>Deactivated Students</span>
@@ -187,12 +205,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{route('gate-passes.index')}}" class="nav-link">
-                        <i class="fas fa-money-check-alt nav-icon"></i>
-                        <span>Issue Gate Pass</span>
-                    </a>
-                </li>
+
 
 
 

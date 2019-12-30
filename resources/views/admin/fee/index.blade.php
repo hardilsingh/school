@@ -1,19 +1,45 @@
 @extends('layouts.admin')
 
+@section('heading')
+Fee Manager
+@stop
+
 
 @section('content')
 
 
-<style>
-
-    
-
-</style>
 
 <div class="row">
+
+
+
+    <div class="col-lg-12">
+        <!-- radio -->
+        <h3 class="h3" style="padding: 20px;">Search By</h3>
+        <div class="form-group clearfix" style="padding: 10px;">
+            <div class="icheck-primary d-inline">
+                <input type="radio" name="search" id="name" style="margin-right: 10px">
+                <label for="name">Student Name or Telephone or Admission Number
+                </label>
+            </div>
+            <div class="icheck-primary d-inline">
+                <input type="radio" name="search" id="class" style="margin-right: 10px">
+                <label for="class">By Class and Section
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="row" id="byname" style="display: none">
     <div class="col-lg-12">
         <div class="form-group">
-            <label for="">Enter Student Name or Telephone or Admission Number</label>
+            <label for="">Enter Student Name or Telephone or Admission Number or Father name</label>
             <input type="text" name="" id="searchIndex" class="form-control">
         </div>
         <div class="form-group">
@@ -22,29 +48,33 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-6">
-        <div class="form-group">
-            <label for="">Select Class:</label>
-            {!! Form::select('class' , $classes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select a class below' ,
-            'id'=>'select_class'])
-            !!}
-        </div>
+<div class="row" id="byclass" style="display: none">
 
-    </div>
-    <div class="col-lg-6">
-        <div class="form-group">
-            <label for="">Select Section:</label>
-            <select name="" class="form-control" id="select_section">
-                <option value="" selected>Select a section below</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-            </select>
+    <div class="div" style="display: flex">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="">Select Class:</label>
+                {!! Form::select('class' , $classes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select a class below' ,
+                'id'=>'select_class'])
+                !!}
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="">Select Section:</label>
+                <select name="" class="form-control" id="select_section">
+                    <option value="" selected>Select a section below</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
         </div>
     </div>
+
 </div>
 
 <div class="row" style="padding: 30px;">
@@ -65,7 +95,22 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                   
+
+                    @foreach($reciepts as $reciept)
+                    <li class="item">
+                        <div class="product-img">
+
+                            <img src="/images/logo.png" style="object-fit: cover" alt="Product Image" class="img-size-50">
+                        </div>
+                        <div class="product-info">
+                            <a href="{{route('reciepts.show' , $reciept->id)}}" class="product-title">{{$reciept->getStudent->name}}
+                                <span class="badge badge-warning float-right"></span></a>
+                            <span class="product-description">
+                                {{$reciept->id}} | Class: {{$reciept->getStudent->class == 100 ? 'Pre-Nursery 1': $reciept->getStudent->class }}-{{$reciept->getStudent->section}}
+                            </span>
+                        </div>
+                    </li>
+                    @endforeach
 
                 </ul>
             </div>
@@ -84,7 +129,7 @@
     Search Results
 </button>
 
-<div class="modal fade" id="modal-xl">
+<div class="modal fade" id="modal-xl" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content" style="width:min-content">
             <div class="modal-header">
@@ -134,6 +179,34 @@
 <script>
     $(document).ready(function() {
 
+
+        // Get the input field
+        var input = document.getElementById("searchIndex");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("search").click();
+            }
+        });
+
+
+        $('#name').change(function() {
+            $('#byname').css('display', 'block');
+            $('#byclass').css('display', 'none');
+
+        })
+
+        $('#class').change(function() {
+            $('#byname').css('display', 'none');
+            $('#byclass').css('display', 'block');
+
+        })
+
         var id;
 
         $("#search").click(function() {
@@ -174,7 +247,7 @@
                             var table = document.getElementById("myTable");
 
                             // Create an empty <tr> element and add it to the 1st position of the table:
-                            var row = table.insertRow(1);
+                            var row = table.insertRow(-1);
 
                             // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
                             var cell1 = row.insertCell(0);
@@ -273,7 +346,7 @@
                             var table = document.getElementById("myTable");
 
                             // Create an empty <tr> element and add it to the 1st position of the table:
-                            var row = table.insertRow(1);
+                            var row = table.insertRow(-1);
 
                             // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
                             var cell1 = row.insertCell(0);

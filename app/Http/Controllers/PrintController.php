@@ -123,14 +123,14 @@ class PrintController extends Controller
 
             if($caste !== "") {
                 $query->where('cast_category' , $caste);
-            }
+        }
 
             if($religion !== "") {
                 $query->where('religion' , $religion);
             }
 
 
-            $results = $query->get();
+            $results = $query->orderBy('name')->get();
 
             return view('admin.prints.print', compact(['results' , 'section' , 'class' , 'gender' , 'caste' , 'religion']));
         }

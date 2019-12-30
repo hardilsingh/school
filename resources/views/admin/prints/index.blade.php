@@ -24,15 +24,14 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Class:</label>
-                        {!! Form::select('class' , $classes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select a class below' ,
+                        {!! Form::select('class' ,$classes , 0 , ['class'=>'form-control' , 'placeholder'=>'Select a class below' ,
                         'id'=>'select_class' , 'required'])
                         !!}
                     </div>
                     <div class="form-group">
                         <label for="">Select Section:</label>
                         <select required name="" class="form-control" id="select_section">
-                            <option value="" selected>Select a section below</option>
-                            <option value="ALL">ALL</option>
+                            <option value="ALL" selected>ALL</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>

@@ -1,44 +1,64 @@
 @extends('layouts.admin')
 
 
+@section('heading')
+Stations
+@stop
+
+
 @section('content')
 
 
-<div class="row" style="margin-bottom:30px;" class="text-center">
-    <div class="col-lg-6" >
-        <h2><u>Stations</u> <a href="{{route('stations.create')}}" class="btn btn-warning" style="margin-left:20px;"><i class="fa fa-plus-circle"></i> Add new</a></h2>
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-lg-12">
+        <div class="form-three widget-shadow">
+
+
+            {!! Form::open([
+
+            'action'=>'StationController@store',
+            'method'=>'POST',
+            'class'=>'form-horizontal'
+
+            ]) !!}
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group"> <label>Station Name</label> <input required name="name" type="text" class="form-control" placeholder="Enter name"> </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group"> <label>Transport Fee</label> <input required name="fee" type="text" class="form-control" placeholder="Enter Transport Fee"> </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group"> <label>Bus Number</label> <input name="bus" type="text" class="form-control" placeholder="Enter Bus Numner"> </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group"> <label>Route</label> <input name="route" type="text" class="form-control" placeholder="Enter Route"> </div>
+                </div>
+            </div>
+        </div>
     </div>
-   
+
+    <div class="row" style="padding: 20px;">
+        <div class="col-lg-3">
+            <button class="btn btn-md btn-success" type="submit">Submit</button>
+        </div>
+    </div>
+
 </div>
 
 
-@if(Session::has('deleted'))
+
+
+
+{!! Form::close() !!}
+
+</div>
+
+
+<hr class="hr">
 <div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('deleted') }}</p>
-    </div>
-</div>
-@endif
-
-@if(Session::has('updated'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('updated') }}</p>
-    </div>
-</div>
-@endif
-
-@if(Session::has('created'))
-<div class="row">
-    <div class="col-lg-6">
-        <p class="alert alert-success">{{ Session::get('created') }}</p>
-    </div>
-</div>
-@endif
-
-
-<div class="col-lg-12">
-    <div class="row">
+    <div class="col-lg-12">
         <table id="myTable" class="table">
             <thead>
                 <tr>
@@ -46,27 +66,29 @@
                     <th>Name</th>
                     <th>Transport Fee</th>
                     <th>Bus Number</th>
+                    <th>Route</th>
                     <th>Action</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
                 @foreach($stations as $station)
-                
+
                 <tr>
                     <td>{{$station->id}}</td>
                     <td>{{$station->name}}</td>
                     <td>{{$station->fee}}</td>
                     <td>{{$station->bus}}</td>
+                    <td>{{$station->route}}</td>
                     <td style="display:flex;">
                         {!! Form::model($station , [
                         'action'=>['StationController@destroy' , $station->id],
                         'method'=>'DELETE'
 
                         ]) !!}
-                        {!! Form::submit('Delete' , ['class'=>'btn btn-danger btn-lg']) !!}
+                        {!! Form::submit('Delete' , ['class'=>'btn btn-danger btn-md']) !!}
                         {!! Form::close() !!}
-                        <a href="{{route('stations.edit' , $station->id)}}" style="margin-left:10px;" class="btn btn-lg btn-warning">Edit</a>
+                        <a href="{{route('stations.edit' , $station->id)}}" style="margin-left:10px;" class="btn btn-md btn-warning">Edit</a>
                     </td>
                 </tr>
 
@@ -74,7 +96,9 @@
             </tbody>
         </table>
     </div>
+
 </div>
+
 
 
 

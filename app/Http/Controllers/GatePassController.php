@@ -32,9 +32,9 @@ class GatePassController extends Controller
 
     public function store(Request $request)
     {
-        GatePass::create($request->all());
+        $gate = GatePass::create($request->all());
         $request->session()->flash('created', "Gate Pass issued successfully");
-        return redirect('/gate-passes');
+        return redirect('/gate-passes/'.$gate->id);
     }
 
     public function destroy($id)
